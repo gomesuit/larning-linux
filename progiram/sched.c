@@ -76,7 +76,7 @@ int main(int argc, char *argv[]){
     exit(EXIT_FAILURE);
   }
   if(resol < 1){
-    fprintf(stderr, "<total>(%d) resol be >= 1\n", resol);
+    fprintf(stderr, "<resol>(%d) should be >= 1\n", resol);
     exit(EXIT_FAILURE);
   }
   int nrecord = total / resol;
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]){
     if(pids[i] < 0){
       goto wait_children;
     }else if (pids[i] == 0){
-      child_fn(i, logbuf, ncreated, nloop_per_resol, start);
+      child_fn(i, logbuf, nrecord, nloop_per_resol, start);
     }
   }
   ret = EXIT_SUCCESS;
@@ -115,7 +115,7 @@ wait_children:
       if(kill(pids[i], SIGINT) < 0)
         warn("kill(%d) failed", pids[i]);
 
-  for(i = 0; i < nrecord; i++)
+  for(i = 0; i < ncreated; i++)
     if(wait(NULL) < 0)
       warn("wait() failed.");
 
