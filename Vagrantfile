@@ -2,12 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'bento/centos-7.4'
+  config.vm.box = 'bento/ubuntu-16.04'
   config.ssh.forward_agent = true
-
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ['modifyvm', :id, '--memory', '2048']
-  end
 
   config.vm.define :server do |host|
     host.vm.hostname = 'server'
